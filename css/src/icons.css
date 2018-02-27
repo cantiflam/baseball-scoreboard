@@ -1,0 +1,25 @@
+/*íconos*/
+@font-face {
+  font-family: 'sultanes';
+  src:  url('fonts/sultanes.eot?917caz');
+  src:  url('fonts/sultanes.eot?917caz#iefix') format('embedded-opentype'),
+    url('fonts/sultanes.ttf?917caz') format('truetype'),
+    url('fonts/sultanes.woff?917caz') format('woff'),
+    url('fonts/sultanes.svg?917caz#sultanes') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'sultanes' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-refresh:before {
+  content: "\e900";
+}
