@@ -5,4 +5,9 @@ $('#displayGet').click(function(){
   } else if(display==2){
     $('#displayPreview').html("<div class='col-3 lineup'></div><div class='col-md-6 display'></div><div class='col-3 lineup'></div><div class='col-12 scoreDisplay'></div>");
   }
+  $.ajax({
+    url: 'php/functions.php',
+    data: 'update=display&display='+display,
+    method: 'post'
+  })
 });

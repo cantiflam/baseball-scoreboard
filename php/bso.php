@@ -1,6 +1,5 @@
 <?php
 require_once('config.php');
-$link = mysqli_connect(SERVER,USER,PASS,DB);
 $result = mysqli_query($link, "SELECT * FROM bso");
 $row = mysqli_fetch_array($result);
 $bso ="<ul>

@@ -25,6 +25,11 @@
 .mry-x4{margin-top:32px;margin-bottom:32px;}
 .mry-x5{margin-top:40px;margin-bottom:40px;}
 .pd-0{padding:0;}
+.pd{padding:8px;}
+.pd-x2{padding:16px;}
+.pd-x3{padding:24px;}
+.pd-x4{padding:32px;}
+.pd-x5{padding:40px;}
 .pdx-0{padding-left:0;padding-right:0;}
 .pdx{padding-left:8px;padding-right:8px;}
 .pdx-x2{padding-left:16px;padding-right:16px;}
@@ -40,4 +45,5 @@
 /*list*/
 ul, ol{
   list-style:none;
+  padding:0;
 }

@@ -20,4 +20,5 @@ $scoreboard = "<section>
     </div>
   </div>
 </section>
+<div id='back'></div>
 ";

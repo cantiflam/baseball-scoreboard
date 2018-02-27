@@ -132,3 +132,30 @@ img.logo{
 .bg-d-3{
   background:#000;
 }
+#display.fullscreen{
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:999;
+  height:100%;
+}
+#display.fullscreen video{
+  height:100%;
+}
+footer{
+  padding:8px;
+  border-radius:2px;
+  box-shadow:0 0 15px 5px #000;
+  color:#aaa;
+  background:#000;
+  position:fixed;
+  bottom:0;
+  opacity:.1;
+}
+footer:hover{
+  opacity:1;
+}
+.showInDisplay{
+  color:#fff;
+  text-transform:uppercase;
+}

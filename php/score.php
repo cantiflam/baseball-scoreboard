@@ -12,7 +12,6 @@ $score .= "<div class='col'><h1>C</h1></div>
 <div class='col'><h1>E</h1></div>
 </div>
 ";
-$link = mysqli_connect(SERVER,USER,PASS,DB);
 $result = mysqli_query($link,"SELECT * FROM score WHERE id='1'");
 $sc = mysqli_fetch_array($result);
 $score .="<div class='row'>

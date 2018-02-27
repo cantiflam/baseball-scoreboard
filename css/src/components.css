@@ -114,11 +114,11 @@ body{
   height:50px;
   background:yellow;
   position:absolute;
-  top:270px;
+  top:360px;
   z-index:999;
 }
 .arrow.active{
-  top:405px;
+  top:495px;
 }
 .select-box select{
   display:block;
@@ -134,4 +134,10 @@ body{
 }
 .select-box label{
   color:#eee;
+  text-transform:uppercase;
+}
+.switch-box{
+  align-items:center;
+  display:flex;
+  padding:8px;
 }

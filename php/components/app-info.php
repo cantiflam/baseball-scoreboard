@@ -6,3 +6,4 @@
   Scoreboard - Pantalla a visualizar durante el partido
   x-Footer - Pie de página y fin del documento
 */
+require_once('./config.php');
