@@ -6,6 +6,9 @@ $score = "<div class='row'>
 for($i=1;$i<=10;$i++){
   $score .= "<div class='col'><h1>$i</h1></div>
   ";
+  if($i==10){
+    $score .= "<div class='col'></div>";
+  }
 }
 $score .= "<div class='col'><h1>C</h1></div>
 <div class='col'><h1>H</h1></div>
@@ -26,6 +29,7 @@ $score .="<div class='row'>
   <div class='col'><h1 class='score'>$sc[9]</h1></div>
   <div class='col'><h1 class='score'>$sc[10]</h1></div>
   <div class='col'><h1 class='score'>$sc[11]</h1></div>
+  <div class='col'></div>
   <div class='col'><h1 class='score'>$sc[12]</h1></div>
   <div class='col'><h1 class='score'>$sc[13]</h1></div>
   <div class='col'><h1 class='score'>$sc[14]</h1></div>
@@ -45,6 +49,7 @@ $score .="<div class='row'>
   <div class='col'><h1 class='score'>$sc[9]</h1></div>
   <div class='col'><h1 class='score'>$sc[10]</h1></div>
   <div class='col'><h1 class='score'>$sc[11]</h1></div>
+  <div class='col'></div>
   <div class='col'><h1 class='score'>$sc[12]</h1></div>
   <div class='col'><h1 class='score'>$sc[13]</h1></div>
   <div class='col'><h1 class='score'>$sc[14]</h1></div>

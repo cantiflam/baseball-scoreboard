@@ -5,12 +5,11 @@
   "repository": "https://github.com/htmike",
   "main": "index.js",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp & clear & firefox http://localhost:9000"
   },
   "author": "Miguel Angel de la Garza | HPMLED",
   "license": "ISC",
   "devDependencies": {
-    "@aquafadas/gulp-php-minify": "^0.3.1",
     "connect-history-api-fallback": "^1.5.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",

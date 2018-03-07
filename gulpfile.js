@@ -2,11 +2,10 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   uglify = require('gulp-uglify'),
   minifycss = require('gulp-minify-css'),
-  connectPHP = require('gulp-connect-php'),
-  livereload = require('gulp-livereload');
+  connectPHP = require('gulp-connect-php');
 
 gulp.task('todo', function () {
-  gulp.src('js/src/*.js').pipe(concat('todo.min.js')).pipe(uglify()).pipe(gulp.dest('js/'))
+  gulp.src('js/src/*.js').pipe(concat('todo.min.js'))/*.pipe(uglify())*/.pipe(gulp.dest('js/'))
 });
 
 gulp.task('style', function () {
@@ -31,8 +30,7 @@ gulp.task('watch', function(){
 gulp.task('connect-php', function() {
   connectPHP.server({
     hostname: '0.0.0.0',
-    port: 9000,
-    livereload: true
+    port: 9000
   });
 });
 

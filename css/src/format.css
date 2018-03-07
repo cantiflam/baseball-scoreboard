@@ -47,3 +47,25 @@ ul, ol{
   list-style:none;
   padding:0;
 }
+/*Alineación de texto*/
+.right-text{
+  text-align:right;
+}
+.left-text{
+  text-align:left;
+}
+.justify-text{
+  text-align:justify;
+}
+.center-text{
+  text-align:center;
+}
+.white-text{
+  color:#fff;
+}
+.uppercase{
+  text-transform:uppercase;
+}
+img{
+  width:100%;
+}

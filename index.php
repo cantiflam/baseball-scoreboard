@@ -9,10 +9,10 @@ if(isset($_SESSION['user'])){
     echo $scoreboard;
   }
   if($user == 'tablero'){
-    echo $control;
+    echo $navbar.$control;
   }
   if($user == 'video'){
-    echo $video;
+    echo $navbar.$video;
   }
   echo $footer;
 } else {

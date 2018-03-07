@@ -6,38 +6,13 @@
   Scoreboard - Pantalla a visualizar durante el partido
   x-Footer - Pie de página y fin del documento
 */
-require_once('./config.php');
+require_once('config.php');
 
 $control = "<div class='arrow'></div>
 <section id='control' class='container'>
   <div class='row card'>
-    <div class='col-lg-3'>
+    <div class='col-lg-4'>
       <h1>Local <div class='switch-container'><div class='switch' data-turn='1'></div></div> Visitante</h1>
-    </div>
-    <div class='col-lg-3 bg-d-1'>
-      <h1><label>Equipo</label></h1>
-      <div class='team-box'>
-        <select id='teamGet'>
-          <option value='sultanes'>sultanes</option>
-          <option value='acereros'>acereros</option>
-          <option value='algodoneros'>algodoneros</option>
-          <option value='bravos'>bravos</option>
-          <option value='diablos'>diablos</option>
-          <option value='generales'>generales</option>
-          <option value='guerreros'>guerreros</option>
-          <option value='leones'>leones</option>
-          <option value='olmecas'>olmecas</option>
-          <option value='pericos'>pericos</option>
-          <option value='piratas'>piratas</option>
-          <option value='rieleros'>rieleros</option>
-          <option value='rojos'>rojos</option>
-          <option value='saraperos'>saraperos</option>
-          <option value='tecolotes'>tecolotes</option>
-          <option value='tigres'>tigres</option>
-          <option value='toros'>toros</option>
-        </select>
-        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateTeam'><i class='sultanes icon-refresh'></i></button>
-      </div>
       <h1><label for='scoreGet'>Marcador</label></h1>
       <div class='number-box'>
         <input type='number' value='0' min='0' id='scoreGet'>
@@ -56,6 +31,7 @@ $control = "<div class='arrow'></div>
         <button type='button' class='btn btn-principal waves-effect waves-light' id='updateScore'><i class='sultanes icon-refresh'></i></button>
       </div>
     </div>
+
     <div class='col-lg-3 bg-d-2'>
       <h1><label for='hitsGet'>Hits</label></h1>
       <div class='number-box'>
@@ -68,21 +44,25 @@ $control = "<div class='arrow'></div>
         <button type='button' class='btn btn-principal waves-effect waves-light' id='updateError'><i class='sultanes icon-refresh'></i></button>
       </div>
     </div>
-    <div class='col-lg-3 bg-d-3'>
+    <div class='col bg-d-3'>
       <h1><label for='ballsGet'>Bolas</label></h1>
       <div class='number-box'>
-        <input type='number' value='0' min='0' id='ballsGet'>
-        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateBalls'><i class='sultanes icon-refresh'></i></button>
+        <input type='number' value='0' min='0' max='2' id='ballsGet'>
+        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateBalls'><i class='sultanes icon-undo'></i></button>
       </div>
+    </div>
+    <div class='col bg-d-3'>
       <h1><label for='strikesGet'>Strikes</label></h1>
       <div class='number-box'>
-        <input type='number' value='0' min='0' id='strikesGet'>
-        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateStrikes'><i class='sultanes icon-refresh'></i></button>
+        <input type='number' value='0' min='0' max='2' id='strikesGet'>
+        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateStrikes'><i class='sultanes icon-undo'></i></button>
       </div>
+    </div>
+    <div class='col bg-d-3'>
       <h1><label for='outsGet'>Outs</label></h1>
       <div class='number-box'>
-        <input type='number' value='0' min='0' id='outsGet'>
-        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateOuts'><i class='sultanes icon-refresh'></i></button>
+        <input type='number' value='0' min='0' max='2' id='outsGet'>
+        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateOuts'><i class='sultanes icon-undo'></i></button>
       </div>
     </div>
     <div id='score' class='pdx-x2'></div>
@@ -96,9 +76,15 @@ $header = "<!DOCTYPE html>
 <head>
   <title>Tablero de béisbol</title>
   <meta charset='utf-8'>
+  <base href='/'>
+  <meta name='author' content='Miguel Angel de la Garza | HPMLED'>
+  <meta name='description' content='Tablero y pantalla dinámica para juego de béisbol'>
   <meta name='viewport' content='width=device-width'>
-  <link rel='shorcut icon' href='img/favicon.png'>
+  <link rel='icon' href='img/favicon.png'>
   <link rel='stylesheet' href='css/style.min.css'>
+  <style>
+    html{background:#000;}
+  </style>
 </head>
 <body>
 ";
@@ -124,16 +110,131 @@ $login = "<section id='login' class='container-fluid'>
 </section>
 ";
 
+$navbar = "<nav>
+  <div class='container'>
+    <button type='button' class='btn' id='menuButton'><i class='sultanes icon-menu'></i></button>
+    <aside class='sidenav'>
+      <img src='img/escudo.jpg' class='side-img' alt='imagen de login'>";
+      if($_SESSION['user']=='tablero'){
+        $navbar .= "<a href=''>tablero</a>
+        <a href='' id='resetScore'>restablecer pizarra</a>
+        <a href='add-team.php'>modificar equipos</a>
+        ";
+      } else if($_SESSION['user']=='video'){
+        $navbar .= "<a href='/'>Reproductor</a>
+        <a href='/playlist.php'>Listas de vídeos</a>";
+      }
+      $navbar .= "<hr>
+      <a href='php/logout.php'>cerrar sesión</a>
+    </aside>
+  </div>
+</nav>
+";
+
+$data = scandir('./uploads/');
+$i = 0;
+foreach($data as $value){
+  if($value != '.' && $value != '..' && !preg_match('/php*/',$value)){
+    $list[$i] .= $value;
+  }
+  $i++;
+}
+if(isset($_GET['list'])){
+  $dirList = $_GET['list'];
+  $data = scandir("./uploads/$dirList/");
+  foreach($data as $value){
+    if($value != '.' && $value != '..' && !preg_match('/php*/',$value)){
+      $img[$i] .= $value;
+    }
+    $i++;
+  }
+}
+$playlist = "<div class='container-fluid row pdy-x5'>
+  <div class='col-md-3'>
+    <button type='button' class='btn btn-principal' id='uploadBtn'>subir archivo</button>
+    <button type='button' class='btn btn-principal' id='newFolder'>nueva carpeta</button>
+    <div class='lists'>";
+    foreach($list as $value){
+      $playlist .= "<a href='playlist.php?list=$value'>$value</a>
+      ";
+    }
+    $playlist .= "</div>
+    </div>
+  <div class='col-md-9 pdy-x2'>
+    <h1 class='white-text uppercase'>$dirList</h1>
+    <div class='row'>";
+      foreach($img as $value){
+        if(preg_match("/\.(jpg|png|jpeg|gif)$/",$value)){
+          $playlist .= "<div class='col-md-4 col-sm-6 playContent'>
+            <img src='/uploads/$dirList/$value' class='imgList'>
+            <div class='play-display'>Reproducir en pantalla <i class='sultanes icon-play_arrow'></i></div>
+          </div>";
+        } else if(preg_match("/\.(mp4|avi|flv|mpeg)$/",$value)) {
+          $playlist .= "<div class='col-md-4 col-sm-6 playContent'>
+            <video src='/uploads/$dirList/$value' class='vidList' controls audio='off' preload>
+              error al visualizar vídeo
+            </video>
+            <div class='play-display'>Reproducir en pantalla <i class='sultanes icon-play_arrow'></i></div>
+          </div>";
+        }
+      }
+      $playlist .= "</div>
+  </div>
+</div>
+";
+$playlist .= "<div class='container pdy-x5 add-video card'>
+  <h2>Subir archivo</h2>
+  <form action='/uploads/upload.php' method='post' class='row' enctype='multipart/form-data'>
+    <div class='col-md-3'>
+      <input type='file' value='subir vídeo' required name='fileUploaded'>
+    </div>
+    <div class='col-md-3 input-container'>
+      <select name='folder'>
+        <option value=''>Seleccione lista</option>";
+        foreach($list as $value){
+          $playlist .= "<option value='$value'>$value</option>";
+        }
+        $playlist .= "</select>
+    </div>
+    <div class='col-md-3'>
+      <button type='submit' class='btn btn-principal waves-effect waves-light'>enviar</button>
+    </div>
+    <div class='col-12 center-text'>
+      <button type='reset' class='btn close white-text' data-target='.add-video'>cerrar <i class='sultanes icon-close'></i></button>
+    </div>
+  </form>
+</div>
+<div class='container-fluid pdy-x5 add-folder card'>
+  <h2>Crear nueva carpeta</h2>
+  <form class='row' action='/uploads/mkdir.php' method='post'>
+    <div class='col'>
+      <p>Solamente se permiten letras y/o números. Las palabras se separan con \"-\" </p>
+    </div>
+    <div class='col'>
+      <div class='input-container'>
+        <input type='text' name='folderName' required id='folderName'>
+        <label for='folderName'>Nombre</label>
+      </div>
+    </div>
+    <div class=col>
+      <button type='submit' name='submit' class='btn btn-principal waves-effect waves-light'>crear</button>
+    </div>
+    <div class='col-12 center-text'>
+      <button type='reset' class='btn close white-text' data-target='.add-folder'>cerrar <i class='sultanes icon-close'></i></button>
+    </div>
+  </form>
+</div>
+";
+
 $scoreboard = "<section>
   <div class='row'>
-    <div id='stats' class='col'>
-
-    </div>
-    <div id='display' class='col pd-0'>
-      <video src='videos/350894231.mp4' autoplay loop>
+    <div class='col' id='lineupLocal'></div>
+    <div id='display' class='col-8 pd-0'>
+      <video src='videos/Sea - 4006.mp4' autoplay>
         error
       </video>
     </div>
+    <div class='col' id='lineupVisitante'></div>
   </div>
   <div id='scoreboard' class='container card pdy-0 pdx-x3'>
     <div class='row'>
@@ -155,14 +256,79 @@ $scoreboardSolo = "
   </div>
 ";
 
-$showInDisplay = mysqli_query()
+
+$addTeam = "<div class='container pdy-x2'>
+  <form action='php/updateTeam.php' method='post'>
+    <div class='row'>
+      <div class='col-md-6 row pdx-1'>
+        <h1 class='col-12 white-text'>Equipo local</h1>
+        ";
+        $i=0;
+        $team = mysqli_query($link,"SELECT * FROM players where team= 'local'");
+          while($player = mysqli_fetch_array($team)){
+          $addTeam .= "<div class='col-lg-2'>
+            <div class='input-container'>
+              <input type='text' name='playerNumberLocal$player[id]' id='playerNumberLocal$player[id]' required value='$player[number]'>
+              <label for='playerNumberLocal$player[id]'>número</label>
+            </div>
+          </div>
+          <div class='col-lg-8'>
+            <div class='input-container'>
+              <input type='text' name='playerNameLocal$player[id]' id='playerNameLocal$player[id]' required value='$player[name]'>
+              <label for='playerNameLocal$player[id]'>nombre del jugador</label>
+            </div>
+          </div>
+          <div class='col-lg-2'>
+            <div class='input-container'>
+              <input type='text' name='playerPositionLocal$player[id]' id='playerPositionLocal$player[id]' required value='$player[position]'>
+              <label for='playerPositionLocal$player[id]'>posición</label>
+            </div>
+          </div>
+          ";
+        }
+        $addTeam .= "</div>
+        <div class='col-md-6 row'>
+          <h1 class='col-12 white-text'>Equipo visitante</h1>
+          ";
+          $team = mysqli_query($link,"SELECT * FROM players WHERE team = 'visitante'");
+          while($player = mysqli_fetch_array($team)){
+            $addTeam .= "<div class='col-lg-2'>
+              <div class='input-container'>
+                <input type='text' name='playerNumberVisitante$player[id]' id='playerNumberVisitante$player[id]' required value='$player[number]'>
+                <label for='playerNumberVisitante$player[id]'>número</label>
+              </div>
+            </div>
+            <div class='col-lg-8'>
+              <div class='input-container'>
+                <input type='text' name='playerNameVisitante$player[id]' id='playerNameVisitante$player[id]' required value='$player[name]'>
+                <label for='playerNameVisitante$player[id]'>nombre del jugador</label>
+              </div>
+            </div>
+            <div class='col-lg-2'>
+              <div class='input-container'>
+                <input type='text' name='playerPositionlVisitante$player[id]' id='playerPositionVisitante$player[id]' required value='$player[position]'>
+                <label for='playerPositionVisitante$player[id]'>posición</label>
+              </div>
+            </div>
+            ";
+          }
+          $addTeam .= "</div>
+        </div>
+        <button type='submit' class='btn btn-principal waves-effect waves-light'>enviar</button>
+  </form>
+</div>
+";
+
+$showInDisplay = mysqli_query($link,"SELECT * FROM displayTemplate WHERE id=1");
+$showDisplay = mysqli_fetch_array($showInDisplay);
 $video = "<div class='container pdy-x5'>
   <div class='row'>
     <div class='col-4'>
       <div class='select-box'>
         <select id='displayGet'>
-          <option value='2'>durante el juego</option>
           <option value='1'>pantalla completa</option>
+          <option value='2'>durante el juego</option>
+          <option value='3'>pantalla y marcador</option>
         </select>
         <label for='displayGet'>Estructura</label>
       </div>
@@ -170,14 +336,34 @@ $video = "<div class='container pdy-x5'>
         <h2>Mostrar</h2>
         <div class='switch-box'>
           <label for='displayGet'>Reloj</label>
-          <div class='switch-container'>
-            <div class='switch'></div>
+          <div class='switch-container' data-status='";
+          if($showDisplay['clock']==1){
+            $video .= '1';
+          } else {
+            $video .= '0';
+          }
+          $video .= "' data-update='clock'>
+            <div class='";
+            if($showDisplay['clock']==1){
+              $video .= "active";
+            }
+            $video .= " switch'></div>
           </div>
         </div>
         <div class='switch-box'>
           <label for='displayGet'>Radar</label>
-          <div class='switch-container'>
-            <div class='switch'></div>
+          <div class='switch-container' data-status='";
+          if($showDisplay['radar']==1){
+            $video .= '1';
+          } else {
+            $video .= '0';
+          }
+          $video .= "' data-update='radar'>
+            <div class='";
+            if($showDisplay['radar']==1){
+              $video .= 'active';
+            }
+            $video .=" switch'></div>
           </div>
         </div>
       </div>

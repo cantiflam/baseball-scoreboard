@@ -1,33 +1,8 @@
 $control = "<div class='arrow'></div>
 <section id='control' class='container'>
   <div class='row card'>
-    <div class='col-lg-3'>
+    <div class='col-lg-4'>
       <h1>Local <div class='switch-container'><div class='switch' data-turn='1'></div></div> Visitante</h1>
-    </div>
-    <div class='col-lg-3 bg-d-1'>
-      <h1><label>Equipo</label></h1>
-      <div class='team-box'>
-        <select id='teamGet'>
-          <option value='sultanes'>sultanes</option>
-          <option value='acereros'>acereros</option>
-          <option value='algodoneros'>algodoneros</option>
-          <option value='bravos'>bravos</option>
-          <option value='diablos'>diablos</option>
-          <option value='generales'>generales</option>
-          <option value='guerreros'>guerreros</option>
-          <option value='leones'>leones</option>
-          <option value='olmecas'>olmecas</option>
-          <option value='pericos'>pericos</option>
-          <option value='piratas'>piratas</option>
-          <option value='rieleros'>rieleros</option>
-          <option value='rojos'>rojos</option>
-          <option value='saraperos'>saraperos</option>
-          <option value='tecolotes'>tecolotes</option>
-          <option value='tigres'>tigres</option>
-          <option value='toros'>toros</option>
-        </select>
-        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateTeam'><i class='sultanes icon-refresh'></i></button>
-      </div>
       <h1><label for='scoreGet'>Marcador</label></h1>
       <div class='number-box'>
         <input type='number' value='0' min='0' id='scoreGet'>
@@ -46,6 +21,7 @@ $control = "<div class='arrow'></div>
         <button type='button' class='btn btn-principal waves-effect waves-light' id='updateScore'><i class='sultanes icon-refresh'></i></button>
       </div>
     </div>
+
     <div class='col-lg-3 bg-d-2'>
       <h1><label for='hitsGet'>Hits</label></h1>
       <div class='number-box'>
@@ -58,21 +34,25 @@ $control = "<div class='arrow'></div>
         <button type='button' class='btn btn-principal waves-effect waves-light' id='updateError'><i class='sultanes icon-refresh'></i></button>
       </div>
     </div>
-    <div class='col-lg-3 bg-d-3'>
+    <div class='col bg-d-3'>
       <h1><label for='ballsGet'>Bolas</label></h1>
       <div class='number-box'>
-        <input type='number' value='0' min='0' id='ballsGet'>
-        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateBalls'><i class='sultanes icon-refresh'></i></button>
+        <input type='number' value='0' min='0' max='2' id='ballsGet'>
+        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateBalls'><i class='sultanes icon-undo'></i></button>
       </div>
+    </div>
+    <div class='col bg-d-3'>
       <h1><label for='strikesGet'>Strikes</label></h1>
       <div class='number-box'>
-        <input type='number' value='0' min='0' id='strikesGet'>
-        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateStrikes'><i class='sultanes icon-refresh'></i></button>
+        <input type='number' value='0' min='0' max='2' id='strikesGet'>
+        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateStrikes'><i class='sultanes icon-undo'></i></button>
       </div>
+    </div>
+    <div class='col bg-d-3'>
       <h1><label for='outsGet'>Outs</label></h1>
       <div class='number-box'>
-        <input type='number' value='0' min='0' id='outsGet'>
-        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateOuts'><i class='sultanes icon-refresh'></i></button>
+        <input type='number' value='0' min='0' max='2' id='outsGet'>
+        <button type='button' class='btn btn-principal waves-effect waves-light' id='updateOuts'><i class='sultanes icon-undo'></i></button>
       </div>
     </div>
     <div id='score' class='pdx-x2'></div>

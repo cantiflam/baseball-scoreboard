@@ -12,6 +12,7 @@
   updateTeam - Actualizar equipos en pizarra
 */
 require_once('config.php');
+$link = mysqli_connect(SERVER,USER,PASS,DB);
 
 if(isset($_POST['user'])){
   $user = $_POST['user'];
@@ -71,6 +72,15 @@ if($_POST['update'] == 'outs'){
 
 if($_POST['update'] == 'score'){
   $query = "UPDATE score SET $_POST[score] = '$_POST[punto]' WHERE id = '$_POST[id]'";
+  if(mysqli_query($link,$query)){
+    echo $query;
+  } else {
+    echo 'false';
+  }
+}
+
+if($_POST['update'] == 'status'){
+  $query = "UPDATE displayTemplate SET $_POST[element] = '$_POST[status]' WHERE id = 1";
   if(mysqli_query($link,$query)){
     echo $query;
   } else {

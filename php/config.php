@@ -1,7 +1,6 @@
 <?php
 session_start();
 header('Content-type: text/html');
-
 //Base de datos
 define("SERVER","localhost");
 define("USER","User");

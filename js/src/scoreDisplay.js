@@ -9,5 +9,18 @@ $('#displayGet').click(function(){
     url: 'php/functions.php',
     data: 'update=display&display='+display,
     method: 'post'
+  }) 
+});
+$('.switch-container').click(function(){
+  if($(this).data('status')==1){$(this).data('status','0');}
+  else{$(this).data('status','1');}
+  update = "update=status";
+  data = "&element="+$(this).data('update');
+  stat = "&status="+$(this).data('status');
+  console.log(update+data+stat);
+  $.ajax({
+    url: 'php/functions.php',
+    data: update+data+stat,
+    method: 'post'
   })
 });
