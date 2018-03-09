@@ -12,7 +12,7 @@ if(isset($_SESSION['user'])){
     echo $navbar.$control;
   }
   if($user == 'video'){
-    echo $navbar.$video;
+    echo $navbar.$playlist;
   }
   echo $footer;
 } else {

@@ -1,7 +1,7 @@
 $data = scandir('./uploads/');
 $i = 0;
 foreach($data as $value){
-  if($value != '.' && $value != '..' && !preg_match('/php*/',$value)){
+  if($value != '.' && $value != '..' && !preg_match('/php*/',$value) && !preg_match('/playNow*/',$value)){
     $list[$i] .= $value;
   }
   $i++;
@@ -16,28 +16,36 @@ if(isset($_GET['list'])){
     $i++;
   }
 }
-$playlist = "<div class='container-fluid row pdy-x5'>
-  <div class='col-md-3'>
-    <button type='button' class='btn btn-principal' id='uploadBtn'>subir archivo</button>
-    <button type='button' class='btn btn-principal' id='newFolder'>nueva carpeta</button>
+$playlist = "<div class='container-fluid row pdy'>
+  <div class='col-md-2'>
+    <div class='select-box'>
+      <select id='displayGet'>
+        <option value='1'>pantalla completa</option>
+        <option value='2'>durante el juego</option>
+        <option value='3'>pantalla y marcador</option>
+      </select>
+    </div>
+    <button type='button' class='btn btn-principal waves-effect waves-light mry col-12' id='stopRep'><i class='sultanes icon-stop'></i></button>
+    <button type='button' class='btn btn-principal waves-effect waves-light mry col-12' id='uploadBtn'><i class='sultanes icon-backup'></i></button>
+    <button type='button' class='btn btn-principal waves-effect waves-light mry col-12' id='newFolder'><i class='sultanes icon-create-new-folder'></i></button>
     <div class='lists'>";
     foreach($list as $value){
-      $playlist .= "<a href='playlist.php?list=$value'>$value</a>
+      $playlist .= "<a href='/index.php?list=$value'>$value</a>
       ";
     }
     $playlist .= "</div>
     </div>
-  <div class='col-md-9 pdy-x2'>
+  <div class='col-md-10 pdy-x2'>
     <h1 class='white-text uppercase'>$dirList</h1>
     <div class='row'>";
       foreach($img as $value){
         if(preg_match("/\.(jpg|png|jpeg|gif)$/",$value)){
-          $playlist .= "<div class='col-md-4 col-sm-6 playContent'>
+          $playlist .= "<div class='col-lg-2 col-md-3 col-sm-6 playContent'>
             <img src='/uploads/$dirList/$value' class='imgList'>
             <div class='play-display'>Reproducir en pantalla <i class='sultanes icon-play_arrow'></i></div>
           </div>";
         } else if(preg_match("/\.(mp4|avi|flv|mpeg)$/",$value)) {
-          $playlist .= "<div class='col-md-4 col-sm-6 playContent'>
+          $playlist .= "<div class='col-lg-2 col-md-3 col-sm-6 playContent'>
             <video src='/uploads/$dirList/$value' class='vidList' controls audio='off' preload>
               error al visualizar vídeo
             </video>

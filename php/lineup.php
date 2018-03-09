@@ -10,8 +10,10 @@ while($player = mysqli_fetch_array($team)){
     <div class='col-1'>$player[number]</div>
     <div class='col-9'>$player[name]</div>
     <div class='col-1'>$player[position]</div>
-  </div>";
+  </div>
+  ";
 }
-$lineup .= "</div>";
+$lineup .= "</div>
+";
 echo $lineup;
 ?>

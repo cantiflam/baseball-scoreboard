@@ -121,8 +121,7 @@ $navbar = "<nav>
         <a href='add-team.php'>modificar equipos</a>
         ";
       } else if($_SESSION['user']=='video'){
-        $navbar .= "<a href='/'>Reproductor</a>
-        <a href='/playlist.php'>Listas de vídeos</a>";
+        $navbar .= "<a href='/'>Reproductor</a>";
       }
       $navbar .= "<hr>
       <a href='php/logout.php'>cerrar sesión</a>
@@ -134,7 +133,7 @@ $navbar = "<nav>
 $data = scandir('./uploads/');
 $i = 0;
 foreach($data as $value){
-  if($value != '.' && $value != '..' && !preg_match('/php*/',$value)){
+  if($value != '.' && $value != '..' && !preg_match('/php*/',$value) && !preg_match('/playNow*/',$value)){
     $list[$i] .= $value;
   }
   $i++;
@@ -149,28 +148,36 @@ if(isset($_GET['list'])){
     $i++;
   }
 }
-$playlist = "<div class='container-fluid row pdy-x5'>
-  <div class='col-md-3'>
-    <button type='button' class='btn btn-principal' id='uploadBtn'>subir archivo</button>
-    <button type='button' class='btn btn-principal' id='newFolder'>nueva carpeta</button>
+$playlist = "<div class='container-fluid row pdy'>
+  <div class='col-md-2'>
+    <div class='select-box'>
+      <select id='displayGet'>
+        <option value='1'>pantalla completa</option>
+        <option value='2'>durante el juego</option>
+        <option value='3'>pantalla y marcador</option>
+      </select>
+    </div>
+    <button type='button' class='btn btn-principal waves-effect waves-light mry col-12' id='stopRep'><i class='sultanes icon-stop'></i></button>
+    <button type='button' class='btn btn-principal waves-effect waves-light mry col-12' id='uploadBtn'><i class='sultanes icon-backup'></i></button>
+    <button type='button' class='btn btn-principal waves-effect waves-light mry col-12' id='newFolder'><i class='sultanes icon-create-new-folder'></i></button>
     <div class='lists'>";
     foreach($list as $value){
-      $playlist .= "<a href='playlist.php?list=$value'>$value</a>
+      $playlist .= "<a href='/index.php?list=$value'>$value</a>
       ";
     }
     $playlist .= "</div>
     </div>
-  <div class='col-md-9 pdy-x2'>
+  <div class='col-md-10 pdy-x2'>
     <h1 class='white-text uppercase'>$dirList</h1>
     <div class='row'>";
       foreach($img as $value){
         if(preg_match("/\.(jpg|png|jpeg|gif)$/",$value)){
-          $playlist .= "<div class='col-md-4 col-sm-6 playContent'>
+          $playlist .= "<div class='col-lg-2 col-md-3 col-sm-6 playContent'>
             <img src='/uploads/$dirList/$value' class='imgList'>
             <div class='play-display'>Reproducir en pantalla <i class='sultanes icon-play_arrow'></i></div>
           </div>";
         } else if(preg_match("/\.(mp4|avi|flv|mpeg)$/",$value)) {
-          $playlist .= "<div class='col-md-4 col-sm-6 playContent'>
+          $playlist .= "<div class='col-lg-2 col-md-3 col-sm-6 playContent'>
             <video src='/uploads/$dirList/$value' class='vidList' controls audio='off' preload>
               error al visualizar vídeo
             </video>
@@ -226,28 +233,25 @@ $playlist .= "<div class='container pdy-x5 add-video card'>
 </div>
 ";
 
-$scoreboard = "<section>
+$scoreboard = "<section class='container-fluid'>
   <div class='row'>
     <div class='col' id='lineupLocal'></div>
-    <div id='display' class='col-8 pd-0'>
-      <video src='videos/Sea - 4006.mp4' autoplay>
-        error
-      </video>
-    </div>
+    <div id='display' class='col-8 pd-0'></div>
     <div class='col' id='lineupVisitante'></div>
   </div>
-  <div id='scoreboard' class='container card pdy-0 pdx-x3'>
-    <div class='row'>
-      <div class='col-10' id='score'></div>
-      <div class='col' id='bso'></div>
-      <div class='col'>
-        <div id='clock'></div>
-        <div id='vel'></div>
-      </div>
+</section>
+<div id='scoreboard' class='container card pdy-0 pdx-x3'>
+  <div class='row'>
+    <div class='col-10' id='score'></div>
+    <div class='col' id='bso'></div>
+    <div class='col'>
+      <div id='clock'></div>
+      <div id='vel'></div>
     </div>
   </div>
-</section>
+</div>
 <div id='back'></div>
+<div id='playIt'></div>
 ";
 
 $scoreboardSolo = "
@@ -256,12 +260,20 @@ $scoreboardSolo = "
   </div>
 ";
 
-
+$teams = ['sultanes','acereros','algodoneros','bravos','diablos','generales','guerreros','leones','olmecas','pericos','piratas','rieleros','rojos','saraperos','tecolotes','tigres','toros'];
 $addTeam = "<div class='container pdy-x2'>
   <form action='php/updateTeam.php' method='post'>
     <div class='row'>
       <div class='col-md-6 row pdx-1'>
-        <h1 class='col-12 white-text'>Equipo local</h1>
+        <h1 class='col-6 white-text'>Equipo local</h1>
+        <div class='select-box col-6 pdy-x3'>
+          <select class='updateTeam' data-team='1'>";
+            foreach($teams as $value){
+              $addTeam .= "<option value='$value'>$value</option>";
+            }
+            $addTeam .= "
+          </select>
+        </div>
         ";
         $i=0;
         $team = mysqli_query($link,"SELECT * FROM players where team= 'local'");
@@ -288,7 +300,15 @@ $addTeam = "<div class='container pdy-x2'>
         }
         $addTeam .= "</div>
         <div class='col-md-6 row'>
-          <h1 class='col-12 white-text'>Equipo visitante</h1>
+          <h1 class='col-6 white-text'>Equipo visitante</h1>
+          <div class='select-box col-6 pdy-x3'>
+            <select class='updateTeam' data-team='1'>";
+              foreach($teams as $value){
+                $addTeam .= "<option value='$value'>$value</option>";
+              }
+              $addTeam .= "
+            </select>
+          </div>
           ";
           $team = mysqli_query($link,"SELECT * FROM players WHERE team = 'visitante'");
           while($player = mysqli_fetch_array($team)){

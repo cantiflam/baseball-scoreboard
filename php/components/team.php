@@ -1,9 +1,17 @@
-
+$teams = ['sultanes','acereros','algodoneros','bravos','diablos','generales','guerreros','leones','olmecas','pericos','piratas','rieleros','rojos','saraperos','tecolotes','tigres','toros'];
 $addTeam = "<div class='container pdy-x2'>
   <form action='php/updateTeam.php' method='post'>
     <div class='row'>
       <div class='col-md-6 row pdx-1'>
-        <h1 class='col-12 white-text'>Equipo local</h1>
+        <h1 class='col-6 white-text'>Equipo local</h1>
+        <div class='select-box col-6 pdy-x3'>
+          <select class='updateTeam' data-team='1'>";
+            foreach($teams as $value){
+              $addTeam .= "<option value='$value'>$value</option>";
+            }
+            $addTeam .= "
+          </select>
+        </div>
         ";
         $i=0;
         $team = mysqli_query($link,"SELECT * FROM players where team= 'local'");
@@ -30,7 +38,15 @@ $addTeam = "<div class='container pdy-x2'>
         }
         $addTeam .= "</div>
         <div class='col-md-6 row'>
-          <h1 class='col-12 white-text'>Equipo visitante</h1>
+          <h1 class='col-6 white-text'>Equipo visitante</h1>
+          <div class='select-box col-6 pdy-x3'>
+            <select class='updateTeam' data-team='1'>";
+              foreach($teams as $value){
+                $addTeam .= "<option value='$value'>$value</option>";
+              }
+              $addTeam .= "
+            </select>
+          </div>
           ";
           $team = mysqli_query($link,"SELECT * FROM players WHERE team = 'visitante'");
           while($player = mysqli_fetch_array($team)){

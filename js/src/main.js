@@ -48,9 +48,9 @@ $('#updateError').click(function(){
     method: 'post'
   })
 })
-$('#updateTeam').click(function(){
-  id = "&id="+$('.switch').data('turn');
-  team = "&team="+$('#teamGet').val();
+$('.updateTeam').click(function(){
+  id = "&id="+$(this).data('team');
+  team = "&team="+$(this).val();
   $.ajax({
     url: 'php/functions.php',
     data: 'update=team'+id+team,
@@ -78,6 +78,16 @@ $('#outsGet').change(function(){
     data: 'update=outs&outs='+$(this).val(),
     method: 'post'
   })
+  $.ajax({
+    url: 'php/functions.php',
+    data: 'update=strikes&strikes=0',
+    method: 'post'
+  })
+  $.ajax({
+    url: 'php/functions.php',
+    data: 'update=balls&balls=0',
+    method: 'post'
+  });
 });
 $('#updateBalls').click(function(){
   $.ajax({

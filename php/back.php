@@ -14,6 +14,14 @@ $scoreBack = "<script async>
     $('#lineupVisitante').fadeOut(300);
     $('#display').addClass('col-12').removeClass('fullscreen col-8');
   }
+  if($show[play]==1){
+    playNow();
+    $.ajax({
+      url: '/uploads/status.php',
+      method : 'post',
+      data: 'status=0'
+    })
+  }
   if($show[clock]==1){
     $('#clock').fadeIn();
   } else{

@@ -9,8 +9,7 @@ $navbar = "<nav>
         <a href='add-team.php'>modificar equipos</a>
         ";
       } else if($_SESSION['user']=='video'){
-        $navbar .= "<a href='/'>Reproductor</a>
-        <a href='/playlist.php'>Listas de vídeos</a>";
+        $navbar .= "<a href='/'>Reproductor</a>";
       }
       $navbar .= "<hr>
       <a href='php/logout.php'>cerrar sesión</a>

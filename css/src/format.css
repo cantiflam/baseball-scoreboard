@@ -9,6 +9,16 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Danger on the Motorway';
+  src: url('fonts/danger/Danger-on-the-Motorway.eot');
+  src: local('fonts/danger/Danger on the Motorway'), local('fonts/danger/Danger-on-the-Motorway'),
+      url('fonts/danger/Danger-on-the-Motorway.eot?#iefix') format('embedded-opentype'),
+      url('fonts/danger/Danger-on-the-Motorway.woff') format('woff'),
+      url('fonts/danger/Danger-on-the-Motorway.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 /*márgenes, bordes, espaciado*/
 .mrx-center{margin-left:auto;margin-right:auto;}
 .mrx-0{margin-left:0;margin-right:0;}
