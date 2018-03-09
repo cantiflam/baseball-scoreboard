@@ -1,6 +1,6 @@
 # Baseball scoreboard
 
-## Alcances
+# Alcances
 ### Marcador
 Marcador de béisbol con opción de editar los equipos (casa, visitante) mediante su logo; edición de entradas mediante incrementos y decrementos de los valores; casillas dinámicas de carreras; mostrar hits y errores para ambos equipos; casillas de base, bola y strike; porcentaje de bateo y número de bateador.
 
